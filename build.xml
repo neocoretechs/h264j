@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<project name="h264j" default="main" basedir=".">
+  <!-- Sets variables which can later be used. -->
+  <!-- The value of a property is accessed via ${} -->
+  <property name="src.dir" location="H264Player/src" />
+  <property name="build.dir" location="bin" />
+  <property name="docs.dir" location="docs" />
+  <property name="lib.dir" location="/Program Files/Apache/apache-tomcat/lib" />
+	<!--
+  <property name="dist.dir" location="dist" />
+  -->
+
+  <!-- Deletes the existing build, docs and dist directory-->
+  <target name="clean">
+    <delete dir="${build.dir}" />
+   <!-- <delete dir="${docs.dir}" />
+    <delete dir="${dist.dir}" />-->
+  </target>
+
+  <!-- Creates the  build, docs and dist directory-->
+  <target name="makedir">
+    <mkdir dir="${build.dir}" />
+    <!--<mkdir dir="${docs.dir}" />
+    <mkdir dir="${dist.dir}" />-->
+  </target>
+
+  <!-- Compiles the java code (including the usage of library for JUnit -->
+  <target name="compile" depends="makedir">
+    <javac srcdir="${src.dir}" destdir="${build.dir}" classpath=".">
+    </javac>
+
+  </target>
+
+  <!-- Creates Javadoc -->
+  <target name="docs" depends="compile">
+    <javadoc packagenames="src" sourcepath="${src.dir}" destdir="${docs.dir}">
+      <!-- Define which files / directory should get included, we include all -->
+       <fileset dir="${src.dir}">
+                <include name="**" />
+           </fileset>
+    </javadoc>
+  </target>
+
+  <!--Creates the deployable jar file  -->
+  <target name="jar" depends="compile">
+    <jar destfile="${build.dir}\h264j.jar" basedir="${build.dir}" includes="**/com/**" excludes="**/*.java">
+    </jar>
+  </target>
+
+  <target name="copy" depends="jar">
+	<!--<copy file="${build.dir}\Saje.jar" todir="C:\Users\jg\Downloads\Saje"/>-->
+	<copy file="${build.dir}\h264j.jar" todir="C:\Program Files\Apache\apache-tomcat\lib"/>
+  </target>
+	
+  <target name="main" depends="copy">
+    <description>Main target</description>
+  </target>
+
+</project> 
