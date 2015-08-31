@@ -46,7 +46,7 @@ public class H264StreamPlayer implements Runnable {
 			displayPanel.setVisible(true);
 			frame.pack();
 			frame.setVisible(true);
-			frame.setSize(new Dimension(645, 380));
+			frame.setSize(new Dimension(600, 800));
 			
 			new Thread(this).start();
 	}

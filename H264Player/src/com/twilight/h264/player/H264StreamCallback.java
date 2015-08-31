@@ -1,12 +1,5 @@
 package com.twilight.h264.player;
 
-
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.awt.image.MemoryImageSource;
-import java.awt.image.WritableRaster;
 import java.io.InputStream;
 import java.util.Arrays;
 
@@ -38,11 +31,14 @@ public class H264StreamCallback implements Runnable {
 	public void run() {
 		System.out.println("Playing ");
 		while(shouldRun)
-			playStream();
+			try {
+				playStream();
+			} catch (Exception e) {
+			}
 	}
 	
 	@SuppressWarnings("unused")
-	public boolean playStream() {
+	public boolean playStream() throws Exception {
 	    H264Decoder codec = null;
 	    MpegEncContext c= null;
 	    //FileInputStream fin = null;
@@ -53,8 +49,7 @@ public class H264StreamCallback implements Runnable {
 	    //uint8_t inbuf[INBUF_SIZE + H264Context.FF_INPUT_BUFFER_PADDING_SIZE];
 	    byte[] inbuf = new byte[INBUF_SIZE + MpegEncContext.FF_INPUT_BUFFER_PADDING_SIZE];
 	    int[] inbuf_int = new int[INBUF_SIZE + MpegEncContext.FF_INPUT_BUFFER_PADDING_SIZE];
-	    //char buf[1024];
-	    byte[] buf = new byte[1024];
+	
 	    AVPacket avpkt = new AVPacket();
 
 	    avpkt.av_init_packet();
@@ -86,7 +81,6 @@ public class H264StreamCallback implements Runnable {
 	    	System.out.println("could not open codec\n");
 	        throw new RuntimeException("could not open codec\n");
 	    }
-
 	    try {
 		    /* the codec gives us the frame size, in samples */
 	
@@ -147,7 +141,14 @@ public class H264StreamCallback implements Runnable {
 			        while (avpkt.size > 0) {
 			            len = c.avcodec_decode_video2(picture, got_picture, avpkt);
 			            if (len < 0) {
+			            	/*
 			                System.out.println("Error while decoding frame "+ frame++);
+			                System.out.println("Size:"+dataPointer);
+			                for(int i = 0; i < dataPointer; i++) {
+			                	System.out.print(i+"="+inbuf_int[i]+" ");
+			                }
+			                System.out.println();
+			                */
 			                // Discard current packet and proceed to next packet
 			                break;
 			            } // if
@@ -166,16 +167,12 @@ public class H264StreamCallback implements Runnable {
 				
 			} // while
 					
-	
-	    } catch(Exception e) {
-	    	e.printStackTrace();
+	    } finally {
+	    	c.avcodec_close();
+	    	c = null;
+	    	picture = null;
+	    	System.out.println("Stop playing video.");
 	    }
-
-	    c.avcodec_close();
-	    c = null;
-	    picture = null;
-	    System.out.println("Stop playing video.");
-	    
 	    return true;
 	}
 	

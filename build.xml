@@ -49,7 +49,7 @@
 
   <target name="copy" depends="jar">
 	<!--<copy file="${build.dir}\Saje.jar" todir="C:\Users\jg\Downloads\Saje"/>-->
-	<copy file="${build.dir}\h264j.jar" todir="C:\Program Files\Apache\apache-tomcat\lib"/>
+	<copy file="${build.dir}\h264j.jar" todir="${lib.dir}"/>
   </target>
 	
   <target name="main" depends="copy">

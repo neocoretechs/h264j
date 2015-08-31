@@ -3018,9 +3018,9 @@ public class H264Context {
 	        // FIXME The two following lines get the bitstream position in the cabac
 	        // decode, I think it should be done by a function in cabac.h (or cabac.c).
 	        if((cabac.low&0x01) != 0) ptr_offset--;
-	        if(CABACContext.CABAC_BITS==16){
+	        //if(CABACContext.CABAC_BITS==16){
 	            if((cabac.low&0x01FF) != 0) ptr_offset--;
-	        }
+	        //}
 
 	        // The pixels are stored in the same order as levels in h->mb array.
 	        for(int i=0;i<128;i++) {
@@ -6109,8 +6109,6 @@ public class H264Context {
 	    }
 	
 	    pps= new PictureParameterSet();
-	    if(pps == null)
-	        return -1;
 	    pps.sps_id= s.gb.get_ue_golomb_31("sps_id");
 	    if(/*(unsigned)*/pps.sps_id>=MAX_SPS_COUNT || this.sps_buffers[(int)pps.sps_id] == null){
 	        //av_log(this.s.avctx, AV_LOG_ERROR, "sps_id out of range\n");
@@ -6190,6 +6188,10 @@ public class H264Context {
 	               );
 	    }
 		*/
+	    // jg 8/15
+	    if( pps_id < 0 || pps_id >= pps_buffers.length ) {
+	    	return -1;
+	    }
 	    this.pps_buffers[pps_id]= null;
 	    this.pps_buffers[pps_id]= pps;
 	    return 0;
@@ -6218,9 +6220,6 @@ public class H264Context {
 	        return -1;
 	    }
 	    sps= new SequenceParameterSet();
-	    if(sps == null)
-	        return -1;
-
 	    sps.time_offset_length = 24;
 	    sps.profile_idc= profile_idc;
 	    sps.level_idc= level_idc;
@@ -6489,8 +6488,7 @@ public class H264Context {
 		        	// DebugTool.printDebugString("Decoding NAL_SLICE...\n");
 
 		        	hx.s.gb.init_get_bits(ptr_base, ptr_offset, bit_length);
-		            hx.intra_gb_ptr=
-		            hx.inter_gb_ptr= hx.s.gb;
+		            hx.intra_gb_ptr = hx.inter_gb_ptr = hx.s.gb;
 		            hx.s.data_partitioning = 0;
 	
 		            err = decode_slice_header(hx, this);
@@ -6537,8 +6535,7 @@ public class H264Context {
 		        	// DebugTool.printDebugString("Decoding NAL_DPA...\n");
 
 		        	hx.s.gb.init_get_bits(ptr_base, ptr_offset, bit_length);
-		            hx.intra_gb_ptr=
-		            hx.inter_gb_ptr= null;
+		            hx.intra_gb_ptr = hx.inter_gb_ptr = null;
 
 		            err = decode_slice_header(hx, this);
 		            // DebugTool.printDebugString("*decode_slice_header returns "+err+"...\n");
@@ -7012,8 +7009,8 @@ public class H264Context {
 	        }
 
 	        for(q=0; q<52; q++){
-	            int shift = this.div6[q];
-	            int idx = this.rem6[q];
+	            int shift = H264Context.div6[q];
+	            int idx = H264Context.rem6[q];
 	            for(x=0; x<64; x++)
 	                this.dequant8_coeff[i][q][(x>>3)|((x&7)<<3)] =
 	                    ((/*uint32_t*/int)H264Data.dequant8_coeff_init[idx][ H264Data.dequant8_coeff_init_scan[((x>>1)&12) | (x&3)] ] *
@@ -7903,8 +7900,8 @@ public class H264Context {
 
 	    s.dropable= (h.nal_ref_idc == 0)?1:0;
 
-        s.me.qpel_put= s.dsp.put_h264_qpel_pixels_tab;
-        s.me.qpel_avg= s.dsp.avg_h264_qpel_pixels_tab;
+        s.me.qpel_put= DSPContext.put_h264_qpel_pixels_tab;
+        s.me.qpel_avg= DSPContext.avg_h264_qpel_pixels_tab;
 
 	    first_mb_in_slice= s.gb.get_ue_golomb("first_mb_in_slice");
 
