@@ -15,9 +15,8 @@ import com.twilight.h264.decoder.MpegEncContext;
  *
  */
 public class H264StreamCallback implements Runnable {
-	
+	private static boolean DEBUG = true;
 	public static final int INBUF_SIZE = 65535;
-	private byte[] buffer = null;
 	InputStream stream;
 	boolean shouldRun = true;
 	RGBListener callback;
@@ -29,12 +28,18 @@ public class H264StreamCallback implements Runnable {
 	}
 	
 	public void run() {
-		System.out.println("Playing ");
-		while(shouldRun)
+		if( DEBUG)
+			System.out.println("Playing ");
+		while(shouldRun) {
 			try {
 				playStream();
 			} catch (Exception e) {
+				if( DEBUG )
+					System.out.println("Exception form playStream():"+e);
 			}
+		}
+		if( DEBUG )
+			System.out.println("Leaving run method of H264StreamCallback");
 	}
 	
 	@SuppressWarnings("unused")
@@ -149,6 +154,8 @@ public class H264StreamCallback implements Runnable {
 			                }
 			                System.out.println();
 			                */
+			            	if( DEBUG )
+			            		System.out.println("H264StreamCallback.playStream Error while decoding frame. length:"+len);
 			                // Discard current packet and proceed to next packet
 			                break;
 			            } // if
@@ -156,6 +163,10 @@ public class H264StreamCallback implements Runnable {
 			            	picture = c.priv_data.displayPicture;
 							callback.imageUpdated(picture);
 							++frame;
+			            } else {
+			            	if( DEBUG )
+			            		System.out.println("H264StreamCallback.playStream got_picture[0]="+got_picture[0]);
+			            	break;
 			            }
 			            avpkt.size -= len;
 			            avpkt.data_offset += len;
@@ -173,6 +184,8 @@ public class H264StreamCallback implements Runnable {
 	    	picture = null;
 	    	System.out.println("Stop playing video.");
 	    }
+	    if( DEBUG )
+	    	System.out.println("H264StreamCallback.playStream leaving video decoding method");
 	    return true;
 	}
 	

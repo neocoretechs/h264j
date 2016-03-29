@@ -6442,6 +6442,7 @@ public class H264Context {
 	        consumed = param[1];
 	        ptr_offset = param[2];
 	        if (ptr_base==null || dst_length < 0){
+	        	System.out.println("Return from decode_nal_units. ptr_base:"+ptr_base+" dst_length:"+dst_length);
 	            return -1;
 	        }
 	        i= buf_index + consumed;
@@ -6460,7 +6461,7 @@ public class H264Context {
 	        //}
 
 	        if (this.is_avc!=0 && (nalsize != consumed) && nalsize!=0){
-	            //av_log(this.s.avctx, AV_LOG_DEBUG, "AVC: Consumed only %d bytes instead of %d\n", consumed, nalsize);
+	            System.out.println("AVC: Consumed only "+consumed+" bytes instead of "+nalsize);
 	        }
 
 	        buf_index += consumed;
@@ -6479,8 +6480,7 @@ public class H264Context {
 		        	// DebugTool.printDebugString("Decoding NAL_IDR_SLICE...\n");
 
 		        	if (this.nal_unit_type != NAL_IDR_SLICE) {
-			        	// DebugTool.printDebugString("*Decoding NAL_IDR_SLICE return -1...\n");
-		                //av_log(this.s.avctx, AV_LOG_ERROR, "Invalid mix of idr and non-idr slices");
+			        	System.out.println("*Decoding NAL_IDR_SLICE return -1. Invalid mix of idr and non-idr slices");
 		                return -1;
 		            }
 		            idr(); //FIXME ensure we don't loose some frames if there is reordering
@@ -6493,29 +6493,33 @@ public class H264Context {
 	
 		            err = decode_slice_header(hx, this);
 		            // DebugTool.printDebugString("*decode_slice_header returns "+err+"...\n");
-		            if((err)!=0)
-		               break;
+		            if((err)!=0) {
+		            	System.out.println("NAL_SLICE decode_slice_header returns "+err);
+		            	break;
+		            }
 
-	
+		            /*
 		            if (this.current_slice == 1) {
-		            	/* No H/W Acceleration
+		            	// No H/W Acceleration
 		                if (s.s.hwaccel && s.s.hwaccel.start_frame(s.avctx, NULL, 0) < 0)
 		                    return -1;
 		                if(CONFIG_H264_VDPAU_DECODER && s.avctx,codec->capabilities&CODEC_CAP_HWACCEL_VDPAU)
 		                    ff_vdpau_h264_picture_start(s);
-		                 */
+		                 
 		            }
-	
+					*/
+		            
 		            s.current_picture_ptr.key_frame |=
 		                    (((hx.nal_unit_type == NAL_IDR_SLICE) ||
 		                    (this.sei_recovery_frame_cnt >= 0))?1:0);
+		            
 		            if(hx.redundant_pic_count==0 && hx.s.hurry_up < 5
 		               && (s.skip_frame < MpegEncContext.AVDISCARD_NONREF || hx.nal_ref_idc!=0)
 		               && (s.skip_frame < MpegEncContext.AVDISCARD_BIDIR  || hx.slice_type_nos!=FF_B_TYPE)
 		               && (s.skip_frame < MpegEncContext.AVDISCARD_NONKEY || hx.slice_type_nos==FF_I_TYPE)
 		               && s.skip_frame < MpegEncContext.AVDISCARD_ALL){
 		                if(s.hwaccel!=0) {
-		                	//System.out.println("Attempt to exec H/W Acceleration codes.");
+		                	System.out.println("Attempt to exec H/W Acceleration codes.");
 		                    //if (avctx->hwaccel->decode_slice(avctx, &buf[buf_index - consumed], consumed) < 0)
 		                    //    return -1;
 		                }else
@@ -6539,8 +6543,10 @@ public class H264Context {
 
 		            err = decode_slice_header(hx, this);
 		            // DebugTool.printDebugString("*decode_slice_header returns "+err+"...\n");
-		            if ((err) < 0)
-		                break;
+		            if ((err) < 0) {
+		            	System.out.println("NAL_DPA decode_slice_header returns "+err);
+		            	break;
+		            }
 	
 		            hx.s.data_partitioning = 1;
 	
@@ -6601,7 +6607,7 @@ public class H264Context {
 		        case NAL_AUXILIARY_SLICE:
 		            break;
 		        default:
-		            //av_log(avctx, AV_LOG_DEBUG, "Unknown NAL code: %d (%d bits)\n", hx.nal_unit_type, bit_length);
+		            System.out.println("Unknown NAL code: "+hx.nal_unit_type+" of bits:"+bit_length);
 		        }
 
 	        	// DebugTool.printDebugString(" ---- context_count="+context_count+", max_contexts="+this.max_contexts+"\n");
@@ -6618,7 +6624,7 @@ public class H264Context {
 		        // DebugTool.printDebugString("**** result from execute_decode_slices = "+err+"\n");
 	
 		        if (err < 0) {
-		            // av_log(this.s.avctx, AV_LOG_ERROR, "decode_slice_header error\n");
+		            System.out.println("decode_slice_header error:"+err);
 		        } else if(err == 1) {
 		            /* Slice could not be decoded in parallel mode, copy down
 		             * NAL unit stuff to context 0 and restart. Note that
@@ -6634,8 +6640,8 @@ public class H264Context {
 
 	      } while(doAgain == true);
 
-	    }
-	    // DebugTool.printDebugString("context_count = "+context_count+"\n");
+	    } // for(;;)
+	    //System.out.println("Break from nal_decode loop context_count = "+context_count+" buf_index:"+buf_index);
 	    if(context_count!=0)
 	    	decode_slice();
 	        //execute_decode_slices(context_count); // This is for multi-thread only
@@ -6809,7 +6815,7 @@ public class H264Context {
 	        } else {
 	            pic= remove_short(s.current_picture_ptr.frame_num, 0);
 	            if(pic!=null){
-	                //av_log(this.s.avctx, AV_LOG_ERROR, "illegal short term buffer state detected\n");
+	                System.out.println("illegal short term buffer state detected:"+pic);
 	            }
 
 	            if(this.short_ref_count!=0) {
