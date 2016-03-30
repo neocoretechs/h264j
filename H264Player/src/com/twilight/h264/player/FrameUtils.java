@@ -84,9 +84,9 @@ public class FrameUtils {
 				int blue = (298 * c + 516 * d + 128) >> 8;
 				blue = blue < 0 ? 0 : (blue > 255 ? 255 : blue);
 				//int alpha = 255;
-				rgb[irgb++] = (byte) blue; // BGR according to ROS decoder
-				rgb[irgb++] = (byte) green;
-				rgb[irgb++] = (byte) red;
+				rgb[irgb++] = (byte) (blue&255); // BGR according to ROS decoder
+				rgb[irgb++] = (byte) (green&255);
+				rgb[irgb++] = (byte) (red&255);
 				//rgb[lineOffLuma + x] = (alpha << 24) | ((red & 0x0ff) << 16)
 				//		| ((green & 0x0ff) << 8) | (blue & 0x0ff);
 			}
