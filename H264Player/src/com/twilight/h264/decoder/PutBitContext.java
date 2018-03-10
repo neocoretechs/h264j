@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class PutBitContext {
+public final class PutBitContext {
 
 	public int index;
 	public long bit_buf;

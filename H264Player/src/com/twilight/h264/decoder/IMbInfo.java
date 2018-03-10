@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class IMbInfo{
+public final class IMbInfo{
     public int type;
     public short pred_mode;
     public short cbp;

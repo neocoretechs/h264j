@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class ParseContext {
+public final class ParseContext {
     public int[] /*uint8_t **/buffer_base;
     public int buffer_offset;
     public int index;

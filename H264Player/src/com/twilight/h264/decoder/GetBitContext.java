@@ -3,7 +3,7 @@ package com.twilight.h264.decoder;
 
 // This class is implemented using #ifdef ALT_BITSTREAM_READER and #ifdef ALT_BITSTREAM_READER_LE
 
-public class GetBitContext {
+public final class GetBitContext {
 	
 	public static final int MIN_CACHE_BITS = 25;
 	public static final int INIT_VLC_LE         = 2;

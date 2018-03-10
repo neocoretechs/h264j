@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class CABACContext {
+public final class CABACContext {
 
 	public static final int CABAC_BITS = 16;
 	public static final int CABAC_MASK = ((1 << CABAC_BITS) - 1);

@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class CAVLCTables {
+public final class CAVLCTables {
 	
 	public static short[][] expandTable(short[][] input) {
 		int tableSize = 0;

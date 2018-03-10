@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class AVComponentDescriptor {
+public final class AVComponentDescriptor {
     public int /*uint16_t */plane        =2;            ///< which of the 4 planes contains the component
 
 	/**

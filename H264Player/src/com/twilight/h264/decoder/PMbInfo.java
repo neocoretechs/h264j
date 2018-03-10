@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class PMbInfo{
+public final class PMbInfo{
     public int type;
     public short partition_count;
     

@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class H264Decoder {
+public final class H264Decoder {
 	
 	public static final int CODEC_CAP_DR1             =0x0002;
 	/* If 'parse_only' field is true, then avcodec_parse_frame() can be used. */

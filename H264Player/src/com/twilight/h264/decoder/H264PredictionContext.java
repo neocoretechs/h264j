@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class H264PredictionContext {
+public final class H264PredictionContext {
 	
 	public static final int CODEC_ID_NONE = 0;
     /* video codecs */

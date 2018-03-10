@@ -2,7 +2,7 @@ package com.twilight.h264.decoder;
 
 import com.twilight.h264.util.*;
 
-public class ErrorResilience {
+public final class ErrorResilience {
 
 	public static final int MV_FROZEN    =3;
 	public static final int MV_CHANGED   =2;
@@ -45,11 +45,11 @@ public class ErrorResilience {
 	        Rectangle.fill_rectangle_mv_cache(h.mv_cache[0],  h.scan8[0] , 4, 4, 8, h.pack16to32(mv[0][0][0],mv[0][0][1]), 4);
 	        ////assert(!FRAME_MBAFF);
 	        h.ff_h264_hl_decode_mb();
-	    }else{
+	    }//else{
 	    // Support only H264.
 	    //    //assert(ref==0);
 	    //    MPV_decode_mb(s, s.block);
-	    }
+	    //}
 	}
 	
 	/**

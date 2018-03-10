@@ -2,7 +2,7 @@ package com.twilight.h264.decoder;
 
 import com.twilight.h264.util.*;
 
-public class ImageUtils {
+public final class ImageUtils {
 	
 	public static final int PIX_FMT_BE        =1; ///< Pixel format is big-endian.
 	public static final int PIX_FMT_PAL       =2; ///< Pixel format has a palette in data[1], values are indexes in this palette.

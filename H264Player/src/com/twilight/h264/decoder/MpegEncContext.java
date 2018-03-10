@@ -2,7 +2,7 @@ package com.twilight.h264.decoder;
 
 import com.twilight.h264.util.*;
 
-public class MpegEncContext {
+public final class MpegEncContext {
 	
 	public static final int AVMEDIA_TYPE_VIDEO = 0;
 

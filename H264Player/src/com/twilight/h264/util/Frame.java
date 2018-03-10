@@ -1,6 +1,6 @@
 package com.twilight.h264.util;
 
-public class Frame {
+public final class Frame {
 	private int width;
 	private int height;
 	private int[] y;

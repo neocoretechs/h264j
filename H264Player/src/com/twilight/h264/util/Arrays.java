@@ -1,6 +1,6 @@
 package com.twilight.h264.util;
 
-public class Arrays {
+public final class Arrays {
 
 	public static boolean equals(Object array1,
             Object array2) {
@@ -16,23 +16,27 @@ public class Arrays {
 	}
 	
 	public static void fill(int[] arr, int startIdxIncl, int endIdxExcl, int val) {
-		for(int i=startIdxIncl;i<endIdxExcl;i++)
-			arr[i] = val;
+		//for(int i=startIdxIncl;i<endIdxExcl;i++)
+		//	arr[i] = val;
+		java.util.Arrays.fill(arr, startIdxIncl, endIdxExcl, val);
 	}
 
 	public static void fill(int[] arr, int val) {
-		for(int i=0;i<arr.length;i++)
-			arr[i] = val;
+		//for(int i=0;i<arr.length;i++)
+		//	arr[i] = val;
+		java.util.Arrays.fill(arr, val);
 	}
 
 	public static void fill(short[] arr, int startIdxIncl, int endIdxExcl, short val) {
-		for(int i=startIdxIncl;i<endIdxExcl;i++)
-			arr[i] = val;
+		//for(int i=startIdxIncl;i<endIdxExcl;i++)
+		//	arr[i] = val;
+		java.util.Arrays.fill(arr, startIdxIncl, endIdxExcl, val);
 	}
 
 	public static void fill(short[] arr, short val) {
-		for(int i=0;i<arr.length;i++)
-			arr[i] = val;
+		//for(int i=0;i<arr.length;i++)
+		//	arr[i] = val;
+		java.util.Arrays.fill(arr, val);
 	}
 	
 }

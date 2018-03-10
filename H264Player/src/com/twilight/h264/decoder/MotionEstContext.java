@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class MotionEstContext {
+public final class MotionEstContext {
 	/**
 	 * Motion estimation context.
 	 */

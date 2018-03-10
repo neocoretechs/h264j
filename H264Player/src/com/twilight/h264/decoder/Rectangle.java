@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class Rectangle {
+public final class Rectangle {
 	
 	// Assume 1 vp is 1 uint_8 = 1 int, which infact represents 1 byte of data in C++
 	public static void fill_rectangle_unsign(int[] vp, int vp_offset, 

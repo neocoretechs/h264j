@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class PixFmtYUV420P extends AVPixFmtDescriptor {
+public final class PixFmtYUV420P extends AVPixFmtDescriptor {
 
 	public PixFmtYUV420P() {
         name = "yuv420p";

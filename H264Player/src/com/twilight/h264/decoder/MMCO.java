@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class MMCO {
+public final class MMCO {
 
 	public static final int MMCO_END = 0;
 	public static final int MMCO_SHORT2UNUSED = 1;

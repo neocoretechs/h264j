@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class LoopFilter {
+public final class LoopFilter {
 
 	/* Deblocking filter (p153) */
 //	public static final int[] alpha_table[52*3] = {

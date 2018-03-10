@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class VLCcode {
+public final class VLCcode {
 	/*
     uint8_t bits;
     uint16_t symbol;

@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class AVFrame {
+public final class AVFrame {
 	
 	public int imageWidthWOEdge;
 	public int imageHeightWOEdge;

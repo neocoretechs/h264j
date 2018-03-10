@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class AVPacket {
+public final class AVPacket {
 
     /**
      * Presentation timestamp in AVStream->time_base units; the time at which

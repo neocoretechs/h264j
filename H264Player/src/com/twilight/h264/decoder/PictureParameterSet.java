@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class PictureParameterSet {
+public final class PictureParameterSet {
 
     public long sps_id;
     public int cabac;                  ///< entropy_coding_mode_flag

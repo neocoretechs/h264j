@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class AVRational {
+public final class AVRational {
     public int num; ///< numerator
     public int den; ///< denominator
     

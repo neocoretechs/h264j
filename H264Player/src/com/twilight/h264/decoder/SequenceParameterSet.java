@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class SequenceParameterSet {
+public final class SequenceParameterSet {
 	
     public static final int AVCOL_PRI_BT709      =1; ///< also ITU-R BT1361 / IEC 61966-2-4 / SMPTE RP177 Annex B
     public static final int AVCOL_PRI_UNSPECIFIED=2;

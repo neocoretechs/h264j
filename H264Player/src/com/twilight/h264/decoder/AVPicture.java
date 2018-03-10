@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class AVPicture {
+public final class AVPicture {
 	/**
 	 * four components are given, that's all.
 	 * the last component is alpha

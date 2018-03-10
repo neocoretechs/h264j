@@ -2,7 +2,7 @@ package com.twilight.h264.decoder;
 
 import com.twilight.h264.util.*;
 
-public class DSPContext {
+public final class DSPContext {
 	
 	public static final int FF_NO_IDCT_PERM = 1; 
 	

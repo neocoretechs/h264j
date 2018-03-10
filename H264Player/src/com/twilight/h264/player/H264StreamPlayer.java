@@ -10,9 +10,11 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.IntBuffer;
 import java.util.Arrays;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.swing.JFrame;
 
+import com.sun.corba.se.spi.orbutil.threadpool.ThreadPoolManager;
 import com.twilight.h264.decoder.AVFrame;
 import com.twilight.h264.decoder.AVPacket;
 import com.twilight.h264.decoder.DebugTool;
@@ -28,7 +30,7 @@ public class H264StreamPlayer implements Runnable {
 	private PlayerFrame displayPanel;
 	private int[] buffer = null;
 	InputStream stream;
-	boolean shouldRun = true;
+	volatile boolean shouldRun = true;
 
 	public H264StreamPlayer(InputStream stream) {
 		this.stream = stream;
@@ -48,7 +50,8 @@ public class H264StreamPlayer implements Runnable {
 			frame.setVisible(true);
 			frame.setSize(new Dimension(600, 800));
 			
-			new Thread(this).start();
+			//new Thread(this).start();
+			
 	}
 	
 	public void run() {
@@ -175,8 +178,8 @@ public class H264StreamPlayer implements Runnable {
 								buffer = new int[bufferSize];
 							}
 							FrameUtils.YUV2RGB(picture, buffer);			
-							displayPanel.lastFrame = displayPanel.createImage(new MemoryImageSource(picture.imageWidth
-									, picture.imageHeight, buffer, 0, picture.imageWidth));
+							displayPanel.setLastFrame( displayPanel.createImage(new MemoryImageSource(picture.imageWidth
+									, picture.imageHeight, buffer, 0, picture.imageWidth)));
 							displayPanel.invalidate();
 							displayPanel.updateUI();			            	
 			            }

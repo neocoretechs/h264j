@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class H264Data {
+public final class H264Data {
 
 	public static final int[] golomb_to_pict_type =
 	{H264Context.FF_P_TYPE, H264Context.FF_B_TYPE, H264Context.FF_I_TYPE, H264Context.FF_SP_TYPE, H264Context.FF_SI_TYPE};

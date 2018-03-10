@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class InternalBuffer {
+public final class InternalBuffer {
     public int last_pic_num;
     //uint8_t *base[4];
     //uint8_t *data[4];

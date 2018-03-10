@@ -2,7 +2,7 @@ package com.twilight.h264.decoder;
 
 import com.twilight.h264.util.*;
 
-public class H264Context {
+public final class H264Context {
 	
 	/**
 	 * Value of Picture.reference when Picture is not a reference picture, but
@@ -6607,7 +6607,8 @@ public class H264Context {
 		        case NAL_AUXILIARY_SLICE:
 		            break;
 		        default:
-		            System.out.println("Unknown NAL code: "+hx.nal_unit_type+" of bits:"+bit_length);
+		            //System.out.println("Unknown NAL code: "+hx.nal_unit_type+" of bits:"+bit_length);
+		        	break;
 		        }
 
 	        	// DebugTool.printDebugString(" ---- context_count="+context_count+", max_contexts="+this.max_contexts+"\n");

@@ -7,14 +7,14 @@ import java.awt.event.WindowEvent;
 import java.awt.image.MemoryImageSource;
 import java.io.File;
 import java.io.FileInputStream;
-import java.nio.IntBuffer;
+
 import java.util.Arrays;
 
 import javax.swing.JFrame;
 
 import com.twilight.h264.decoder.AVFrame;
 import com.twilight.h264.decoder.AVPacket;
-import com.twilight.h264.decoder.DebugTool;
+
 import com.twilight.h264.decoder.H264Context;
 import com.twilight.h264.decoder.H264Data;
 import com.twilight.h264.decoder.H264Decoder;
@@ -188,8 +188,8 @@ public class H264Player implements Runnable {
 								buffer = new int[bufferSize];
 							}
 							FrameUtils.YUV2RGB(picture, buffer);			
-							displayPanel.lastFrame = displayPanel.createImage(new MemoryImageSource(picture.imageWidth
-									, picture.imageHeight, buffer, 0, picture.imageWidth));
+							displayPanel.setLastFrame(displayPanel.createImage(new MemoryImageSource(picture.imageWidth
+									, picture.imageHeight, buffer, 0, picture.imageWidth)));
 							displayPanel.invalidate();
 							displayPanel.updateUI();			            	
 			            }

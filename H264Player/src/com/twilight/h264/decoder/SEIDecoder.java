@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class SEIDecoder {
+public final class SEIDecoder {
 
 	public static void ff_h264_reset_sei(H264Context h) {
 	    h.sei_recovery_frame_cnt       = -1;

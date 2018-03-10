@@ -18,7 +18,7 @@ public class H264StreamCallback implements Runnable {
 	private static boolean DEBUG = true;
 	public static final int INBUF_SIZE = 65535;
 	InputStream stream;
-	boolean shouldRun = true;
+	volatile boolean shouldRun = true;
 	RGBListener callback;
 
 	public H264StreamCallback(InputStream stream, RGBListener callback) {
@@ -154,8 +154,8 @@ public class H264StreamCallback implements Runnable {
 			                }
 			                System.out.println();
 			                */
-			            	if( DEBUG )
-			            		System.out.println("H264StreamCallback.playStream Error while decoding frame. length:"+len);
+			            	//if( DEBUG )
+			            	//	System.out.println("H264StreamCallback.playStream Error while decoding frame. length:"+len);
 			                // Discard current packet and proceed to next packet
 			                break;
 			            } // if

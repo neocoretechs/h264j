@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class H264DSPContext {
+public final class H264DSPContext {
 	
 	public static final int MAX_NEG_CROP = 1024;
 	public static int[] ff_cropTbl = new int[256 + 2 * MAX_NEG_CROP];
@@ -517,9 +517,11 @@ public class H264DSPContext {
         }    	
     }
 
+    /*
     public void h264_dct(short block[][]) {
     	
     }
+    */
     
     public static final short[] scan8 = {
     	 4+1*8, 5+1*8, 4+2*8, 5+2*8,

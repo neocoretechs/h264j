@@ -1,6 +1,6 @@
 package com.twilight.h264.decoder;
 
-public class AVPanScan {
+public final class AVPanScan {
     /**
      * id
      * - encoding: Set by user.
